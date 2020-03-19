@@ -59,3 +59,148 @@ Rules for termnation a cloud function
 - onUpdate
 - onDelete
 - onWrite (respond all this previous changes)
+
+# Delete all functions that match the specified name in all regions.
+$ firebase functions:delete myFunction
+
+# Delete a specified function running in a specific region.
+$ firebase functions:delete myFunction --region us-east-1
+
+# Delete more than one function
+$ firebase functions:delete myFunction myOtherFunction
+
+# Delete a specified functions group.
+$ firebase functions:delete groupA
+
+# Bypass the confirmation prompt.
+$ firebase functions:delete myFunction --force
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import * as functions from 'firebase-functions';
+
+// // Start writing Firebase Functions
+// // https://firebase.google.com/docs/functions/typescript
+
+export const onMessageCreate = functions.database
+.ref('/donations/{donationId}/messages/{messageId}') //ref has admin privilege, so, none security layer will affect the way it reading or writting doc
+.onCreate( async (snapshot, context) => {//on create it's only triggers on new documents creation
+    const roomId = context.params.roomId;
+    const messageId = context.params.messageId;
+
+    console.log(`New message ${messageId} in room ${roomId}`);
+
+    const messageData = snapshot.val();
+    const text = addPizzazz(messageData.text);
+    await snapshot.ref.update({ text: text}); //update the ref get previusly by ref('/rooms/....)
+
+    //To avoid race condition on database. first of all the function method should be async and use "transaction" on the target reference
+    const countRef = snapshot.ref.parent?.parent?.child('messageCount');
+    countRef?.transaction(count => {
+        return count + 1;
+    })
+ 
+});
+
+function addPizzazz(value: string): string {
+    return value.replace(/\bpizza\b/g, '🍕');
+}
+
+
+export const onMesageUpdate = functions.database
+.ref('/rooms/{roomId}/messages/{messageId}')
+.onUpdate(async (change, context) => { //the change update give 2 property when data change: chage.before and change.after
+
+    const before = change.before.val();
+    const after = change.after.val();
+
+    if(before.text == after.text){//we need to check this to avoid recursion because of update ref used in the last line. This should be the stop condition
+        console.log("Text didn't chaged");
+        return null
+    }
+
+    const text = addPizzazz(after.text);
+    const lastUpdate = Date.now();
+    change.before.ref.update({ text, lastUpdate });
+})
+
+export const onMesageDelete = functions.database
+.ref('/rooms/{roomId}/messages/{messageId}')
+.onDelete(async (snapshot, context) => {
+
+    const countRef = snapshot.ref.parent?.parent?.child('messageCount');
+    countRef?.transaction(count => {
+        return count - 1;
+    })
+})*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IBM
+
+
+Sem acesso ao PONG o usuário não terá permissão para acessar o ticket
