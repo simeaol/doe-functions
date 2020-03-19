@@ -1,8 +1,7 @@
+import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-admin.initializeApp();//initialize firebase admin
-
-export const onUserRegistration = user.onUserRegistration;
+export const onUserRegistration = functions.auth.user().onCreate((user) => {
 
     const email = user.email;
     const displayName = user.displayName;
@@ -20,8 +19,5 @@ export const onUserRegistration = user.onUserRegistration;
         country: 'Brasil',
         last_update: Date.now(),
     });
-
-    //console.log(`Profile registered on profiles collection at ${result.writeTime}`);
-
 
 });
