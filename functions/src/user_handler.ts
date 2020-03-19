@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-export const onUserRegistration = functions.auth.user().onCreate((user) => {
+export const onUserRegistration = functions.auth.user().onCreate((user, context) => {
 
     const email = user.email;
     const displayName = user.displayName;
@@ -17,7 +17,8 @@ export const onUserRegistration = functions.auth.user().onCreate((user) => {
         display_name: displayName,
         city: null,
         country: 'Brasil',
-        last_update: Date.now(),
+        last_update: admin.firestore.FieldValue.serverTimestamp(),
     });
 
 });
+
